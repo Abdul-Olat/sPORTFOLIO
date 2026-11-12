@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Abdullah — Storefront design, marketing sites and frontend development</title>
+<meta name="description" content="Abdullah designs and builds storefronts, marketing sites and web apps with HTML, CSS, JavaScript, TypeScript and React.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f2f4f7;--surface:#fff;--ink:#0f1b2d;--muted:#566275;--line:#d5dae1;--accent:#1f3dff;--on-accent:#fff;--shadow:0 1px 2px rgba(15,27,45,.06),0 12px 32px -16px rgba(15,27,45,.25);color-scheme:light;
+--display:'Bricolage Grotesque','Segoe UI',system-ui,sans-serif;--body:'Instrument Sans','Segoe UI',system-ui,sans-serif}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0c1220;--surface:#141c2e;--ink:#e8ecf3;--muted:#9aa6ba;--line:#26314a;--accent:#8aa0ff;--on-accent:#0c1220;--shadow:0 1px 2px rgba(0,0,0,.4),0 12px 32px -16px rgba(0,0,0,.6);color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0c1220;--surface:#141c2e;--ink:#e8ecf3;--muted:#9aa6ba;--line:#26314a;--accent:#8aa0ff;--on-accent:#0c1220;--shadow:0 1px 2px rgba(0,0,0,.4),0 12px 32px -16px rgba(0,0,0,.6);color-scheme:dark}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth;scroll-padding-top:calc(72px + env(safe-area-inset-top,0px));-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--ink);font:400 1rem/1.6 var(--body);padding-bottom:env(safe-area-inset-bottom,0px)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:30}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:6px}
+.wrap{width:min(1120px,100% - 40px);margin-inline:auto}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.bar{display:flex;align-items:center;justify-content:space-between;height:64px;gap:16px}
+.logo{font:800 1.25rem var(--display);text-decoration:none;letter-spacing:-.02em}
+nav{display:flex;gap:22px;align-items:center;font-size:.95rem;font-weight:500}
+nav a{text-decoration:none;color:var(--muted)}nav a:hover{color:var(--ink)}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 20px;border-radius:999px;background:var(--accent);color:var(--on-accent);font-weight:600;text-decoration:none;border:0;cursor:pointer;font-family:inherit;font-size:.95rem}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.btn:hover{filter:brightness(1.08)}
+#theme{width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:transparent;color:var(--ink);cursor:pointer;font-size:1rem}
+.hero{padding:clamp(56px,10vw,120px) 0 clamp(40px,6vw,72px)}
+h1{font:800 clamp(2.5rem,7.4vw,5.6rem)/1 var(--display);letter-spacing:-.04em;max-width:15ch}
+h1 em{font-style:normal;color:var(--accent)}
+.lede{max-width:58ch;margin-top:28px;font-size:1.15rem;color:var(--muted)}
+.cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}
+.facts{display:flex;flex-wrap:wrap;gap:10px 28px;margin-top:56px;padding-top:24px;border-top:1px solid var(--line);color:var(--muted);font-size:.95rem}
+.facts b{color:var(--ink);font-weight:600}
+section{padding:clamp(48px,8vw,96px) 0}
+h2{font:700 clamp(1.8rem,4vw,2.8rem)/1.08 var(--display);letter-spacing:-.03em;max-width:20ch}
+.sub{color:var(--muted);max-width:60ch;margin-top:14px}
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin:32px 0 28px}
+.chip{padding:9px 16px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--muted);cursor:pointer;font:500 .9rem var(--body)}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,330px),1fr));gap:24px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:20px;overflow:hidden;display:flex;flex-direction:column;box-shadow:var(--shadow)}
+.card[hidden]{display:none}
+.shot{aspect-ratio:16/10;background:linear-gradient(135deg,var(--c1),var(--c2));padding:22px 22px 0;display:flex;align-items:flex-end}
+.win{width:100%;height:100%;background:#fff;border-radius:10px 10px 0 0;box-shadow:0 -6px 24px rgba(0,0,0,.18);overflow:hidden;display:flex;flex-direction:column}
+.win i{display:flex;gap:5px;padding:8px 10px;background:#eef0f3}
+.win i b{width:7px;height:7px;border-radius:50%;background:#c3c8d0}
+.pg{flex:1;padding:12px;display:grid;gap:8px;align-content:start}
+.pg s{display:block;border-radius:4px;background:#e3e6eb}
+.pg .h{height:14px;width:62%;background:var(--c1)}
+.pg .t{height:6px;width:80%}
+.pg .row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.pg .row s{height:54px;background:color-mix(in srgb,var(--c2) 70%,#fff)}
+.pg.dash{grid-template-columns:34px 1fr}.pg.dash .side{background:var(--c1);height:100%;min-height:90px}
+.pg.dash .bars{display:flex;align-items:flex-end;gap:6px;height:80px}.pg.dash .bars s{flex:1;background:var(--c2)}
+.body{padding:22px;display:flex;flex-direction:column;gap:12px;flex:1}
+.kind{font-size:.85rem;font-weight:600;color:var(--accent)}
+h3{font:700 1.45rem/1.15 var(--display);letter-spacing:-.02em}
+.body p{color:var(--muted);font-size:.97rem}
+.body ul{padding-left:18px;color:var(--muted);font-size:.93rem}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:auto;padding-top:6px}
+.tags span{font-size:.8rem;padding:4px 10px;border-radius:999px;background:var(--bg);border:1px solid var(--line)}
+.links{display:flex;gap:18px;padding-top:6px;font-weight:600;font-size:.95rem}
+.links a{text-underline-offset:4px}
+.skills{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:0;border:1px solid var(--line);border-radius:20px;overflow:hidden;margin-top:36px;background:var(--surface)}
+.sk{padding:26px 22px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);margin:0 -1px -1px 0}
+.sk h3{font-size:1.2rem;margin-bottom:8px}.sk p{color:var(--muted);font-size:.92rem}
+.three{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:28px;margin-top:36px}
+.three div{border-top:2px solid var(--ink);padding-top:16px}.three p{color:var(--muted);margin-top:8px}
+.contact{background:var(--ink);color:var(--bg);border-radius:28px;padding:clamp(32px,6vw,72px)}
+.contact h2{max-width:16ch}.contact p{color:color-mix(in srgb,var(--bg) 72%,transparent);margin-top:14px;max-width:52ch}
+.contact .btn{background:var(--bg);color:var(--ink)}.contact .btn.ghost{background:transparent;color:var(--bg);border-color:color-mix(in srgb,var(--bg) 40%,transparent)}
+footer{padding:32px 0 48px;color:var(--muted);font-size:.9rem}
+@media(max-width:720px){nav a:not(.btn){display:none}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+@media(prefers-reduced-motion:no-preference){.hero h1,.hero .lede,.hero .cta{animation:up .7s both}.hero .lede{animation-delay:.1s}.hero .cta{animation-delay:.2s}@keyframes up{from{opacity:0;transform:translateY(14px)}}}
+.case{padding:clamp(40px,7vw,88px) 0}.case .back{display:inline-block;font-weight:600;text-decoration:none;color:var(--muted);margin-bottom:28px}.case .back:hover{color:var(--ink)}
+.case h1{font-size:clamp(2.3rem,6vw,4.4rem);max-width:18ch}.case .meta{display:flex;flex-wrap:wrap;gap:8px 28px;margin:24px 0 8px;color:var(--muted);font-size:.95rem}.case .meta b{color:var(--ink);font-weight:600}
+.case h2{font-size:1.6rem;margin:44px 0 12px;max-width:none}.case p,.case li{color:var(--muted);max-width:64ch}.case ul{padding-left:20px;display:grid;gap:8px}
+.case .note{margin-top:40px;padding:18px 20px;border:1px solid var(--line);border-radius:14px;background:var(--surface);font-size:.93rem}
+</style>
+</head>
+<body>
+<header><div class="wrap bar">
+<a class="logo" href="#top">Abdullah</a>
+<nav aria-label="Primary"><a href="#work">Work</a><a href="#skills">Skills</a><a href="#approach">Approach</a><a class="btn" href="#contact">Hire me</a><button id="theme" aria-label="Switch colour theme">◐</button></nav>
+</div></header>
+<main id="top">
+<div class="wrap hero">
+<h1>Storefronts that turn browsers into <em>buyers.</em></h1>
+<p class="lede">I’m Abdullah, a frontend developer. I redesign online stores, build marketing sites that explain a product in seconds, and ship the dashboards and apps behind them, in clean HTML, CSS, JavaScript, TypeScript and React.</p>
+<div class="cta"><a class="btn" href="#work">See the work</a><a class="btn ghost" href="#contact">Start a project</a></div>
+<div class="facts"><span><b>8</b> live projects</span><span><b>3</b> storefront builds</span><span><b>2</b> marketing sites</span><span><b>3</b> web apps</span></div>
+</div>
+
+<section id="work"><div class="wrap">
+<h2>Selected work, all live and clickable.</h2>
+<p class="sub">Each project opens as a working site. Filter by the kind of work you’re hiring for.</p>
+<div class="filters" role="group" aria-label="Filter projects">
+<button class="chip" aria-pressed="true" data-f="all">All work</button>
+<button class="chip" aria-pressed="false" data-f="store">Storefronts</button>
+<button class="chip" aria-pressed="false" data-f="mkt">Marketing sites</button>
+<button class="chip" aria-pressed="false" data-f="app">Web apps</button>
+</div>
+<div class="grid" id="grid"></div>
+</div></section>
+
+<section id="skills"><div class="wrap">
+<h2>The stack behind the screens.</h2>
+<p class="sub">Plain, fast, accessible code first. Frameworks where a project actually needs them.</p>
+<div class="skills">
+<div class="sk"><h3>HTML</h3><p>Semantic structure, landmarks and forms that work with a keyboard and a screen reader.</p></div>
+<div class="sk"><h3>CSS</h3><p>Responsive grids, design tokens, dark and light themes, motion that respects user settings.</p></div>
+<div class="sk"><h3>JavaScript</h3><p>Cart logic, filtering, search, auth flows and live dashboards without a framework.</p></div>
+<div class="sk"><h3>TypeScript</h3><p>Typed components and data models for storefronts that stay safe to change.</p></div>
+<div class="sk"><h3>React</h3><p>Component-based storefront redesigns with reusable product, cart and layout pieces.</p></div>
+</div></div></section>
+
+<section id="approach"><div class="wrap">
+<h2>How a store redesign works with me.</h2>
+<div class="three">
+<div><h3>Audit first</h3><p>I review the current store for slow paths to purchase: confusing navigation, weak product pages, cluttered mobile layouts.</p></div>
+<div><h3>Design around the product</h3><p>Typography, colour and layout come from the brand and what it sells, not from a template.</p></div>
+<div><h3>Build and hand over</h3><p>Responsive, accessible and documented code you can run or extend, delivered in your preferred stack.</p></div>
+</div></div></section>
+
+<section id="contact"><div class="wrap"><div class="contact">
+<h2>Have a store or product to improve?</h2>
+<p>Tell me what you sell and where customers drop off. I’ll reply with a clear plan and a quote.</p>
+<div class="cta"><a class="btn" href="https://github.com/Abdul-Olat" rel="noopener">GitHub: Abdul-Olat</a><a class="btn ghost" href="https://x.com/theabdullahdev" rel="noopener">X: @theabdullahdev</a></div>
+<p>Also available on Upwork.</p>
+</div></div></section>
+</main>
+<main id="case" hidden></main>
+<footer><div class="wrap">© 2026 Abdullah. Designed and built by hand in a single HTML file.</div></footer>
+
+<script>
+var P=[
+{n:'Tout Decora',k:'store',t:'Storefront redesign concept',c:['#7a5c3e','#ead9c3'],m:'store',d:'A premium home-décor store reimagined in Portuguese, with clear category browsing, calm product presentation and a layout built to let the products lead.',b:['Redesign concept with sample products','Brand-led typography and colour'],g:['React','TypeScript','Tailwind'],u:'https://abdul-olat.github.io/TOUT-DECORA-/',r:'TOUT-DECORA-'},
+{n:'Loyen Wear',k:'store',t:'Storefront redesign concept',c:['#1b1b1f','#c9b79c'],m:'store',d:'A redesign concept for the Loyen Wear fashion label, written for Portuguese-speaking shoppers and focused on a sharper brand presence and easier browsing on mobile.',b:['Portuguese-language interface','Mobile-first layout'],g:['React','TypeScript','Tailwind'],u:'https://abdul-olat.github.io/LOYEN-WEAR/',r:'LOYEN-WEAR'},
+{n:'Loom & Co.',k:'store',t:'E-commerce store',c:['#2f5d50','#e6d8b8'],m:'store',d:'A working online store where shoppers search, filter by category, set a maximum price and sort by price or rating, then review everything in a slide-in cart with a running total.',b:['Live search, category and price filters','Cart drawer with checkout step'],g:['HTML','CSS','JavaScript'],u:'https://abdul-olat.github.io/Loom-Co.-E-commerce-Store/',r:'Loom-Co.-E-commerce-Store'},
+{n:'HAVEN',k:'mkt',t:'Marketing site for a real estate platform',c:['#b08a4e','#1d2a3a'],m:'site',d:'A luxury-feel marketing site that pitches a real estate platform from first scroll to sign-up: hero listing card, feature grid, dashboard preview, client stories and three pricing tiers.',b:['Light and dark theme toggle','Fully responsive, built for conversion'],g:['HTML','CSS','JavaScript'],u:'https://abdul-olat.github.io/RealEstate-Web/',r:'RealEstate-Web'},
+{n:'NEXUS',k:'mkt',t:'Marketing site for a software studio',c:['#2a2bff','#0b0f2a'],m:'site',d:'A bold agency site that explains services, process and tech stack, compares three pricing plans and ends with a clear call to book a strategy call.',b:['Service, process and pricing sections','Single clear call to action'],g:['HTML','CSS','JavaScript'],u:'https://abdul-olat.github.io/NEXUS/',r:'NEXUS'},
+{n:'VitalAxis',k:'app',t:'Healthcare analytics dashboard',c:['#0f766e','#a7f3d0'],m:'dash',d:'A clinical dashboard that puts bed occupancy, admissions, department capacity, a patient table and priority alerts on one screen, with a sidebar that adapts to small screens.',b:['KPI cards and admissions chart','Status-coded patient table and alert feed'],g:['HTML','CSS','JavaScript'],u:'https://abdul-olat.github.io/Healthcare-Analytics-web/',r:'Healthcare-Analytics-web'},
+{n:'StreamVault',k:'app',t:'Movie streaming interface',c:['#7c1d2e','#f4a261'],m:'dash',d:'A streaming-site front end with a featured film, genre rows across more than a dozen categories, instant search and full sign-in, sign-up and password reset flows.',b:['Genre filtering and search','Complete account flows with show/hide password'],g:['HTML','CSS','JavaScript'],u:'https://abdul-olat.github.io/Films/',r:'Films'},
+{n:'AccessCSS',k:'app',t:'Accessibility learning resource',c:['#0b3b2e','#6ee7b7'],m:'site',d:'An interactive guide to accessible CSS covering focus styles, contrast ratios, relative units and reduced motion, with copy-ready code, a WCAG table and a validated knowledge-check quiz.',b:['Practical code examples','Accessible form with validation'],g:['HTML','CSS','JavaScript'],u:'https://abdul-olat.github.io/ACCESS-CSS/',r:'ACCESS-CSS'}
+];
+function slug(n){return n.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')}
+var kinds={store:'Storefront',mkt:'Marketing site',app:'Web app'};
+function mock(p){
+ var s='<s class="h"></s><s class="t"></s><s class="t" style="width:55%"></s>';
+ if(p.m==='dash')return '<div class="pg dash"><div class="side"></div><div style="display:grid;gap:8px;align-content:start">'+s+'<div class="bars"><s style="height:40%"></s><s style="height:70%"></s><s style="height:55%"></s><s style="height:90%"></s><s style="height:65%"></s></div></div></div>';
+ return '<div class="pg">'+s+'<div class="row"><s></s><s></s><s></s></div></div>';
+}
+var g=document.getElementById('grid');
+g.innerHTML=P.map(function(p){
+ return '<article class="card" data-k="'+p.k+'"><div class="shot" style="--c1:'+p.c[0]+';--c2:'+p.c[1]+'" aria-hidden="true"><div class="win"><i><b></b><b></b><b></b></i>'+mock(p)+'</div></div><div class="body"><span class="kind">'+kinds[p.k]+'</span><h3>'+p.n.replace('&','&amp;')+'</h3><p>'+p.d+'</p><ul>'+p.b.map(function(x){return '<li>'+x+'</li>'}).join('')+'</ul><div class="tags">'+p.g.map(function(x){return '<span>'+x+'</span>'}).join('')+'</div><div class="links"><a href="'+p.u+'" rel="noopener" target="_blank">View live site</a>'+(p.k==='store'?'<a href="#case-'+slug(p.n)+'">Read case study</a>':'')+'</div></div></article>';
+}).join('');
+document.querySelectorAll('.chip').forEach(function(c){c.addEventListener('click',function(){
+ document.querySelectorAll('.chip').forEach(function(x){x.setAttribute('aria-pressed',x===c)});
+ var f=c.dataset.f;document.querySelectorAll('.card').forEach(function(k){k.hidden=!(f==='all'||k.dataset.k===f)});
+})});
+var root=document.documentElement,tb=document.getElementById('theme');
+try{var sv=localStorage.getItem('theme');if(sv)root.dataset.theme=sv}catch(e){}
+tb.addEventListener('click',function(){
+ var dark=root.dataset.theme?root.dataset.theme==='dark':matchMedia('(prefers-color-scheme:dark)').matches;
+ root.dataset.theme=dark?'light':'dark';try{localStorage.setItem('theme',root.dataset.theme)}catch(e){}
+});
+
+var C={
+'tout-decora':{n:'Tout Decora',t:'Storefront redesign concept',lang:'Portuguese (pt-BR)',stack:['React','TypeScript','Tailwind'],u:'https://abdul-olat.github.io/TOUT-DECORA-/',
+brief:'Reimagine an independent home-décor store so its products look as considered as they feel in the room, and so shoppers can browse by category without effort.',
+ap:[['Audit','Home-décor shoppers buy on atmosphere. I looked for anything that makes good pieces look ordinary: crowded grids, weak hierarchy, inconsistent product presentation.'],['Design','A calm, material-led palette, generous spacing and large product imagery, with every word of copy written in Portuguese for the local audience.'],['Build','A React and TypeScript front end styled with Tailwind, split into reusable pieces for navigation, product cards and page sections.']],
+shipped:['Storefront layout with category browsing and product cards','Sample product catalogue to show the design with real content','Portuguese interface and copy throughout','Responsive from phone to desktop'],
+note:'This is an independent redesign concept built with sample products. It is not the store’s official website.'},
+'loyen-wear':{n:'Loyen Wear',t:'Storefront redesign concept',lang:'Portuguese',stack:['React','TypeScript','Tailwind'],u:'https://abdul-olat.github.io/LOYEN-WEAR/',
+brief:'Give a fashion label an online store with a sharper brand presence and easier browsing, designed for Portuguese-speaking shoppers who mostly arrive on a phone.',
+ap:[['Audit','Fashion sells on first impression. I reviewed how a store like this introduces the brand, shows clothing and guides a shopper from landing page to product.'],['Design','A brand-first layout with confident typography and clear product presentation, planned for small screens before large ones.'],['Build','A componentised React and TypeScript front end with Tailwind, so new collections and sections can be added without redoing the layout.']],
+shipped:['Redesigned storefront with a stronger brand introduction','Portuguese-language interface','Mobile-first, responsive layout','Reusable components for sections and product display'],
+note:'This is a redesign concept created for portfolio purposes, not the label’s official website.'},
+'loom-co':{n:'Loom & Co.',t:'E-commerce store',lang:'English',stack:['HTML','CSS','JavaScript'],u:'https://abdul-olat.github.io/Loom-Co.-E-commerce-Store/',
+brief:'Build a complete online store from scratch where a shopper can find something specific quickly, then buy it without leaving the page.',
+ap:[['Audit','The common failure in small stores is search and filtering that make people work too hard. I started with the path from landing to cart.'],['Design','One screen with search, category, price and sort controls always within reach, and a cart that slides in instead of replacing the page.'],['Build','Plain JavaScript manages products, filters and cart state, with no framework, keeping the page light and fast.']],
+shipped:['Live search across the catalogue','Category filter and maximum-price slider','Sorting by featured, price low to high, price high to low, and top rated','Slide-in cart with a running total and checkout button'],
+note:'A demonstration store with sample products.'}
+};
+var home=document.getElementById('top'),cs=document.getElementById('case'),t0=document.title;
+function route(){
+ var h=decodeURIComponent(location.hash.slice(1)),c=h.indexOf('case-')===0&&C[h.slice(5)];
+ if(c){
+  cs.innerHTML='<div class="wrap case"><a class="back" href="#work">← All work</a><h1>'+c.n.replace('&','&amp;')+'</h1><div class="meta"><span><b>Type</b> '+c.t+'</span><span><b>Language</b> '+c.lang+'</span><span><b>Role</b> Design and frontend development</span></div>'
+  +'<h2>The brief</h2><p>'+c.brief+'</p><h2>Approach</h2><div class="three">'+c.ap.map(function(a){return '<div><h3>'+a[0]+'</h3><p>'+a[1]+'</p></div>'}).join('')+'</div>'
+  +'<h2>What I built</h2><ul>'+c.shipped.map(function(x){return '<li>'+x+'</li>'}).join('')+'</ul><h2>Stack</h2><div class="tags" style="margin:0">'+c.stack.map(function(x){return '<span>'+x+'</span>'}).join('')+'</div>'
+  +'<p class="note">'+c.note+'</p><div class="cta"><a class="btn" href="'+c.u+'" target="_blank" rel="noopener">View live site</a><a class="btn ghost" href="#work">Back to all work</a></div></div>';
+  home.hidden=true;cs.hidden=false;document.title=c.n+' case study — Abdullah';scrollTo(0,0);return;
+ }
+ var was=home.hidden;home.hidden=false;cs.hidden=true;document.title=t0;
+ if(was){var el=h&&document.getElementById(h);if(el)el.scrollIntoView();else scrollTo(0,0)}
+}
+addEventListener('hashchange',route);route();
+</script>
+</body>
+</html>
